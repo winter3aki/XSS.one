@@ -2,6 +2,83 @@
 # Core HTTP library used for sending requests to check active domains
 requests>=2.28.0
 
-🧾 Detailed Explanation (for README or comments)
+__________________________________________________________________________________________________________________
 
+🧾 Detailed Explanation (for README or comments)
 You can add this section in your README or as a separate requirements.md 👇
+
+__________________________________________________________________________________________________________________
+
+🔧 Python Dependencies
+
+requests>=2.28.0
+
+📌 Why this is needed:
+*requests
+   *sed in is_active() function
+   *Sends HTTP/HTTPS requests to check if a domain is alive
+   *Handles timeouts, headers, and response status codes
+
+__________________________________________________________________________________________________________________
+
+⚠️ Important Note
+This script mainly depends on external tools, not Python libraries.
+
+__________________________________________________________________________________________________________________
+
+🛠️ External Tool Requirements (VERY IMPORTANT)
+These are NOT installed via requirements.txt, but must be installed manually:
+
+</> Bash
+
+subfinder
+paramspider
+dalfox
+
+Optional:
+
+</> Bash
+
+proxychains
+
+____________________________________________________________________________________________________________________
+
+💡 Pro Tip (Advanced requirements.txt)
+If you want a more “pro GitHub look”, you can still structure it like this:
+
+# ==============================
+# Python Dependencies
+# ==============================
+
+# HTTP requests for active domain checking
+requests>=2.28.0
+
+# ==============================
+# External Dependencies (Manual Install Required)
+# ==============================
+
+# subfinder     -> Subdomain discovery
+# paramspider   -> Parameter extraction
+# dalfox        -> XSS scanning
+# proxychains   -> Optional proxy routing
+
+__________________________________________________________________________________________________________________
+
+🚀 Bonus (Optional improvement)
+You can also create a setup.sh:
+
+</> Bash
+
+#!/bin/bash
+
+echo "[*] Installing Python dependencies..."
+pip install -r requirements.txt
+
+echo "[*] Make sure these tools are installed manually:"
+echo " - subfinder"
+echo " - paramspider"
+echo " - dalfox"
+echo " - proxychains (optional)"
+
+__________________________________________________________________________________________________________________
+
