@@ -1,123 +1,152 @@
 # XSS.one
 Automated Reflected XSS Scanner for Bug Bounty Hunters Built with Subfinder, ParamSpider &amp; Dalfox
+🎯 XSS Hunter v2.0
+Automated Reflected XSS Scanner for Bug Bounty Hunters
+Python License Platform Bug Bounty Version
 
-🚀 XSS Automation Pipeline
+"Hack Smart. Hunt Hard." 🎯
 
-An automated Python script to discover and extract XSS (Cross-Site Scripting) vulnerabilities by chaining popular recon and fuzzing tools.
+📌 Overview
+XSS Hunter v2.0 is a fully automated, end-to-end Reflected XSS vulnerability scanner built specifically for bug bounty hunters. It chains together industry-standard open-source tools into a single seamless pipeline — from subdomain enumeration all the way to confirmed Proof-of-Concept XSS vulnerabilities.
 
-🔥 Overview
+No more manual chaining of tools. No more missed parameters. Just one command.
 
-This tool performs a complete pipeline:
+python3 xsshunter.py -d target.com
+⚙️ Workflow
+Target Domain
+      │
+      ▼
+┌─────────────────────────┐
+│  1. Subfinder            │  →  Subdomain Enumeration
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  2. Active Check         │  →  Filter Live Subdomains (20 Threads)
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  3. ParamSpider          │  →  Parameter Discovery (No Timeout)
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  4. Smart Filter         │  →  Single Params + Remove login/account URLs
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  5. Deduplication        │  →  Remove Duplicate URLs
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  6. FUZZ → 123           │  →  Dalfox Compatibility Fix
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  7. Dalfox Scan          │  →  Reflected XSS + WAF Evasion
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│  8. Extract POCs         │  →  vulnerableurl.txt 🎯
+└─────────────────────────┘
+🚀 Features
+Core Features
+Feature	Description
+🔍 Subdomain Enumeration	Automatically discovers subdomains using Subfinder
+✅ Active Subdomain Check	Filters only live subdomains using 20 parallel threads
+🕷️ Parameter Discovery	Collects all URLs and parameters using ParamSpider — no timeout, handles 100k+ parameters
+🎯 Smart URL Filtering	Automatically removes login/account URLs, filters single parameter URLs
+🔄 Duplicate Removal	Removes duplicate URLs before scanning
+💉 Reflected XSS Scan	Dalfox with --mining-dom=false — focused Reflected XSS only
+🛡️ WAF Evasion	Built-in --waf-evasion — works against WAF protected sites
+📋 Clean Output	Filters WAF spam lines — only important output shown on screen
+🎯 POC Extraction	Saves confirmed vulnerable URLs to a separate file
+Stability Features
+Feature	Description
+🌐 Internet Auto-Recovery	Waits on disconnect, automatically resumes on reconnect
+⚡ Rate Limit Detection	Auto-increases delay on 429 detection + 30s wait
+📝 Error Logging	All errors saved to a timestamped log file
+🛑 Graceful Exit	Progress saved even on Ctrl+C
+🔄 Auto Resume	Interrupted scans resume from where they left off
+Usability Features
+Feature	Description
+📊 Live Progress Bar	Real-time status for every step
+🔢 ParamSpider Live Counter	Shows real-time parameter count while collecting
+⚙️ Default + Custom Mode	Use Dalfox default settings or specify custom flags
+💻 Single Command	Entire workflow in one command
+📋 Requirements
+Tool	Type
+Python 3	Pre-installed on Kali Linux
+Subfinder	Go tool
+ParamSpider	Python package
+Dalfox	Go tool
+🛠️ Installation
+Auto Install (Recommended)
+Clone the repo and run the installer — it will install everything automatically:
 
-🔍 Subdomain enumeration
-🌐 Live host detection
-🔗 Parameter discovery
-🧹 URL filtering & cleaning
-💣 Automated XSS scanning
-✅ Extracts valid PoC results
-🧰 Tools Used
-subfinder → Subdomain discovery
-paramspider → Parameter mining
-dalfox → XSS scanner
-proxychains → (optional) anonymity
-📁 Output Files
-File Name	Description
-subfinder.txt	All discovered subdomains
-active.txt	Live domains
-param.txt	All parameters collected
-singleparam.txt	URLs with single parameters
-withoutfuzz.txt	Clean URLs for scanning
-XSS.txt	Raw scan results
-XSSfinal.txt	Extracted XSS PoC URLs
-⚙️ Requirements
-🐍 Python
-Python 3.x
-📦 Python Libraries
-pip install requests
-🛠️ External Tools (Required)
+git clone https://github.com/EnCrYpTeD05/XSS-HUNTER.git
+cd XSS-HUNTER
+chmod +x install.sh && ./install.sh
+Manual Install
+# Python dependencies
+pip install requests paramspider
 
-Make sure these are installed and in PATH:
+# Go tools
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+go install github.com/hahwul/dalfox/v2@latest
+📖 Usage
+Basic Usage (Recommended)
+python3 xsshunter.py -d target.com
+Custom Dalfox Settings
+python3 xsshunter.py -d target.com --dalfox-mode custom --workers 5 --delay 500 --timeout 30
+All Options
+  -d, --domain        Target domain (required)
+  --threads           Threads for active subdomain check (default: 20)
+  --dalfox-mode       'default' or 'custom' (default: default)
+  --workers           Dalfox workers in custom mode (default: 5)
+  --delay             Dalfox delay in ms (default: 500)
+  --timeout           Dalfox timeout in seconds (default: 30)
+📂 Output Files
+File	Description
+subdomains.txt	All discovered subdomains
+activesubdomains.txt	Live/active subdomains only
+parameters.txt	All discovered parameters (merged)
+singleparam.txt	Filtered single-parameter URLs
+withoutfuzz.txt	Deduplicated URLs ready for scanning
+scan	Full Dalfox scan output
+vulnerableurl.txt	Confirmed vulnerable URLs 🎯
+xss_hunter_errors_*.log	Error log file
+🧹 Cleanup Before New Scan
+Always clean up before scanning a new target domain:
 
-subfinder
-paramspider
-dalfox
+rm -rf results/ parameters.txt singleparam.txt withoutfuzz.txt subdomains.txt activesubdomains.txt scan vulnerableurl.txt scanned_urls.txt pending_urls.txt
+📸 Sample Output
+[*] Starting scan [SID:4][4/64][6.25%] / URL: http://target.com/page.php?id=1
+[*] Valid target [ code:200 / size:100 ]
+[W] Reflected Payload in HTML: id=><script>alert(1)</script>
+[POC][R][GET][inHTML-URL] http://target.com/page.php?id=1%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E
+[V] Triggered XSS Payload (found DOM Object): id="><IMG SRC=x onpageshow="alert(1)" class=dalfox>
+[POC][V][GET][inHTML-URL] http://target.com/page.php?id=1%22%3E%3CIMG+SRC%3Dx...
+[*] [duration: 31m][issues: 5] Finish Scan!
+⚠️ Legal Disclaimer
+This tool is intended strictly for authorized security testing only:
 
-Optional:
+✅ Authorized bug bounty programs
+✅ CTF competitions
+✅ Explicitly authorized penetration testing engagements
+✅ Your own systems/applications
+Always verify the target is in-scope before testing. Follow the program's rules and terms of service at all times.
 
-proxychains
-📥 Installation
-git clone https://github.com/yourusername/xss-automation.git
-cd xss-automation
-chmod +x script.py
-▶️ Usage
-✅ With domain argument
-python3 script.py -d example.com
-✅ Without argument (interactive)
-python3 script.py
+The author is not responsible for any misuse or damage caused by this tool. Unauthorized use of this tool against systems you do not have permission to test is illegal and unethical.
 
-Then enter:
+📄 License
+This project is licensed under the MIT License — see the LICENSE file for details.
 
-example.com
-⚡ Workflow Explained
-1. Subdomain Enumeration
+"Hack Smart. Hunt Hard." 🎯
 
-Runs:
-
-subfinder -d target -o subfinder.txt
-2. Active Domain Check
-Uses multithreading (30 threads)
-Sends HTTP/HTTPS requests
-Filters live hosts
-3. Parameter Collection
-
-Runs:
-
-paramspider -l active.txt
-4. Single Parameter Filtering
-Keeps only URLs with one parameter
-Removes complex multi-param URLs
-5. Payload Cleaning
-Removes FUZZ
-Normalizes values → =123
-6. XSS Scanning
-
-Runs:
-
-dalfox file withoutfuzz.txt
-
-(through proxychains if enabled)
-
-7. PoC Extraction
-Filters only lines containing "poc"
-Saves final vulnerable URLs
-🧠 Key Features
-⚡ Fast (multithreaded active checking)
-🛡️ Safe subprocess handling
-🔄 Fully automated pipeline
-🧩 Modular steps (easy to extend)
-🧪 Focused on high-quality XSS targets
-⚠️ Disclaimer
-
-This tool is for educational purposes and authorized testing only.
-Do NOT scan targets without permission.
-
-💡 Future Improvements
-Add multi-parameter fuzzing
-Integrate Wayback/GAU URLs
-JSON/HTML report export
-Add CLI flags for each step
-Better error handling & logging
-⭐ Contribute
-
-Pull requests are welcome!
-If you find bugs or want features, open an issue.
-
-👨‍💻 Author
-
-Made with ❤️ for Bug Bounty Hunters
-
-If you want next level upgrade, I can:
-
-add auto recon + nuclei integration
-convert this into a full bug bounty framework
-or build a GUI version
+⭐ If this tool helped you find bugs, drop a star on the repo!
