@@ -1,7 +1,11 @@
 
                                       🚀 XSS Automation Pipeline
 ___________________________________________________________________________________________________________________________________________________
-An automated Python-based pipeline for discovering Cross-Site Scripting (XSS) vulnerabilities using popular reconnaissance and fuzzing tools.
+                          Automated Reflected XSS Scanner for Bug Bounty Huntersn
+
+                                          Created by winter#aki
+
+                                         "Hack Smart. Hunt Hard." 🎯
 
 _____________________________________________________________________________________________________________________________________________________
 
