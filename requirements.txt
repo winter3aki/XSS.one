@@ -31,7 +31,7 @@ These are NOT installed via requirements.txt, but must be installed manually:
 
 </> Bash
 
-subfinder
+              subfinder
 paramspider
 dalfox
 
