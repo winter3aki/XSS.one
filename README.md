@@ -89,4 +89,129 @@ ________________________________________________________________________________
     
     python3 script.py -d example.com
 
+___________________________________________________________________________________________________________________________________________________
+
+✅ Run interactively
+
+    </> Bash
     
+     python3 script.py
+
+Then enter:
+
+    example.com
+    
+___________________________________________________________________________________________________________________________________________________
+
+⚡ Workflow
+
+1. Subdomain Enumeration
+
+       </> Bash
+          
+       subfinder -d target -o subfinder.txt
+
+__________________________________________________________________________________________________________________________________________________   
+
+2. Active Domain Check
+.Sends HTTP/HTTPS requests
+.Filters alive domains
+.Uses multithreading (30 threads)
+
+____________________________________________________________________________________________________________________________________________________
+
+3. Parameter Extraction
+
+       </> Bash
+
+       paramspider -l active.txt
+
+_____________________________________________________________________________________________________________________________________________________
+
+4. Filter Single Parameters
+.Keeps only URLs with one parameter
+.Removes complex URLs
+
+____________________________________________________________________________________________________________________________________________________
+
+5. Clean Payloads
+.Removes FUZZ
+.Replaces values → =123
+
+_____________________________________________________________________________________________________________________________________________________
+
+6. Run XSS Scanner
+
+       </> Bash
+
+       dalfox file withoutfuzz.txt
+
+_____________________________________________________________________________________________________________________________________________________
+
+7. Extract XSS PoC
+.Filters only valid PoC lines
+.Saves results in XSSfinal.txt
+
+_____________________________________________________________________________________________________________________________________________________
+
+🧠 Key Features
+.⚡ Fast & efficient (multi-threaded)
+.🛡️ Safe subprocess handling
+.🔄 Fully automated pipeline
+.🧩 Modular design (easy to modify)
+.🎯 Focused on high-quality targets
+
+____________________________________________________________________________________________________________________________________________________
+
+📦 requirements.txt
+
+    # HTTP requests for active domain checking
+    requests>=2.28.0
+
+    # External tools (install manually):
+    # subfinder
+    # paramspider
+    # dalfox
+    # proxychains (optional)
+
+___________________________________________________________________________________________________________________________________________________
+
+⚠️ Disclaimer
+
+This tool is strictly for educational purposes and authorized penetration testing only.
+Do NOT use it on systems without proper permission.
+
+_________________________________________________________________________________________________________________________________________________
+
+💡 Future Improvements
+.Multi-parameter fuzzing
+.Wayback/GAU integration
+.JSON/HTML reporting
+.CLI flags for each step
+.Logging & progress tracking
+
+_________________________________________________________________________________________________________________________________________________
+
+⭐ Contributing
+
+Pull requests are welcome!
+Feel free to open issues for bugs or feature requests.
+
+_________________________________________________________________________________________________________________________________________________
+
+👨‍💻 Author
+
+Made with ❤️ for Bug Bounty Hunters
+
+
+
+
+
+
+
+
+
+
+
+
+
