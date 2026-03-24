@@ -103,14 +103,24 @@ ________________________________________________________________________________
 
       git clone https://github.com/winter3aki/XSS.one.git
       cd xss.one
+      chmod +x install.sh && ./install.sh
 
-__________________________________________________________________________________________________________________________________________________
+Manual Install
+
+    </> Bash
+     # Python dependencies
+    pip install requests paramspider
+
+    # Go tools
+    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+    go install github.com/hahwul/dalfox/v2@latest
+
+_________________________________________________________________________________________________________________________________________________
 
 2️⃣ Install Python Dependencies
 
-    </> Bash
+     python3 xsshunter.py -d target.com
 
-     pip install -r requirements.txt
 
 __________________________________________________________________________________________________________________________________________________
 
@@ -136,11 +146,25 @@ ________________________________________________________________________________
 
 ▶️ Usage
 
+Basic Usage (Recommended)
+Custom Dalfox Settings
+
+	   python3 xsshunter.py -d target.com --dalfox-mode custom --workers 5 --delay 500 --timeout 30
+
+All Options		 
+
+         -d, --domain        Target domain (required)
+         --threads           Threads for active subdomain check (default: 20)
+         --dalfox-mode       'default' or 'custom' (default: default)
+         --workers           Dalfox workers in custom mode (default: 5)
+         --delay             Dalfox delay in ms (default: 500)
+         --timeout           Dalfox timeout in seconds (default: 30)
+
 ✅ Run with domain argument
 
     </> Bash
     
-    python3 script.py -d example.com
+    python3 XSSone.py -d example.com
 
 ___________________________________________________________________________________________________________________________________________________
 
@@ -148,7 +172,7 @@ ________________________________________________________________________________
 
     </> Bash
     
-     python3 script.py
+     python3 XSSone.py
 
 Then enter:
 
@@ -164,7 +188,7 @@ ________________________________________________________________________________
           
        subfinder -d target -o subfinder.txt
 
-__________________________________________________________________________________________________________________________________________________   
+__________________________________________________________________________________________________________________________________________________
 
 2. Active Domain Check
 .Sends HTTP/HTTPS requests
@@ -217,6 +241,12 @@ ________________________________________________________________________________
 ____________________________________________________________________________________________________________________________________________________
 
 📦 requirements.txt
+          
+          Tool	=  Type
+      Python 3	=  Pre-installed on Kali Linux
+      Subfinder	=  Go tool
+      ParamSpider  =	Python package
+      Dalfox	  =  Go tool
 
     # HTTP requests for active domain checking
     requests>=2.28.0
@@ -254,9 +284,9 @@ ________________________________________________________________________________
 
 👨‍💻 Author
 
-Made with ❤️ for Bug Bounty Hunters
+winter3aki | GitHub: @winter3aki
 
-
+"Hack Smart. Hunt Hard." 🎯
 
 
 
