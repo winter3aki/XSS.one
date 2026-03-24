@@ -1,0 +1,7 @@
+📦 requirements.txt
+# Core HTTP library used for sending requests to check active domains
+requests>=2.28.0
+
+🧾 Detailed Explanation (for README or comments)
+
+You can add this section in your README or as a separate requirements.md 👇
