@@ -2,7 +2,7 @@
                                              🚀 XSS ONE
 ___________________________________________________________________________________________________________________________________________________
 
-                          Automated Reflected XSS Scanner for Bug Bounty Huntersn
+                          Automated Reflected XSS Scanner for Bug Bounty Hunter
 
                                           Created by winter#aki
 
