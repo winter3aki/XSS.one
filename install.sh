@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-# XSS Hunter v2.0 - Auto Installer
+# XSS one - Auto Installer
 # Usage: chmod +x install.sh && ./install.sh
 # ============================================
 
@@ -11,7 +11,7 @@ RESET="\033[0m"
 
 echo -e "${CYAN}"
 echo "============================================"
-echo "     XSS Hunter v2.0 - Auto Installer      "
+echo "        XSS one - Auto Installer           "
 echo "         Created by EnCrYpTeD05            "
 echo "============================================"
 echo -e "${RESET}"
@@ -39,5 +39,5 @@ echo -e "${GREEN}[+]${RESET} Dalfox installed!"
 echo ""
 echo -e "${GREEN}============================================${RESET}"
 echo -e "${GREEN}   All tools installed successfully! 🎯    ${RESET}"
-echo -e "${GREEN}   Run: python3 xsshunter.py -d target.com ${RESET}"
+echo -e "${GREEN}   Run: python3 xssone.py -d target.com ${RESET}"
 echo -e "${GREEN}============================================${RESET}"
