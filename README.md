@@ -119,7 +119,7 @@ ________________________________________________________________________________
 
 2️⃣ Install Python Dependencies
 
-     python3 xsshunter.py -d target.com
+     python3 xssone.py -d target.com
 
 
 __________________________________________________________________________________________________________________________________________________
@@ -149,7 +149,7 @@ ________________________________________________________________________________
 Basic Usage (Recommended)
 Custom Dalfox Settings
 
-	   python3 xsshunter.py -d target.com --dalfox-mode custom --workers 5 --delay 500 --timeout 30
+	   python3 xssone.py -d target.com --dalfox-mode custom --workers 5 --delay 500 --timeout 30
 
 All Options		 
 
