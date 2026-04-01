@@ -23,7 +23,7 @@ echo -e "${GREEN}[+]${RESET} requests installed!"
 
 # ParamSpider
 echo -e "${CYAN}[*]${RESET} Installing ParamSpider..."
-pip install paramspider
+pip install paramspider --break-system-packages
 echo -e "${GREEN}[+]${RESET} ParamSpider installed!"
 
 # Subfinder
