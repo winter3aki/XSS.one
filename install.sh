@@ -12,7 +12,7 @@ RESET="\033[0m"
 echo -e "${CYAN}"
 echo "============================================"
 echo "        XSS one - Auto Installer           "
-echo "         Created by EnCrYpTeD05            "
+echo "         Created by winter            "
 echo "============================================"
 echo -e "${RESET}"
 
