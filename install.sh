@@ -28,7 +28,7 @@ echo -e "${GREEN}[+]${RESET} ParamSpider installed!"
 
 # Subfinder
 echo -e "${CYAN}[*]${RESET} Installing Subfinder..."
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+sudo apt install subfinder
 echo -e "${GREEN}[+]${RESET} Subfinder installed!"
 
 # Dalfox
