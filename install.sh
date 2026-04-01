@@ -33,6 +33,7 @@ echo -e "${GREEN}[+]${RESET} Subfinder installed!"
 
 # Dalfox
 echo -e "${CYAN}[*]${RESET} Installing Dalfox..."
+sudo apt install golang -y
 go install github.com/hahwul/dalfox/v2@latest
 echo -e "${GREEN}[+]${RESET} Dalfox installed!"
 
