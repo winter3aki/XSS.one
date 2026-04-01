@@ -33,8 +33,13 @@ echo -e "${GREEN}[+]${RESET} Subfinder installed!"
 
 # Dalfox
 echo -e "${CYAN}[*]${RESET} Installing Dalfox..."
-sudo apt install golang -y
-go install github.com/hahwul/dalfox/v2@latest
+sudo apt update
+sudo apt install build-essential procps curl file git
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+brew doctor
+brew install dalfox
 echo -e "${GREEN}[+]${RESET} Dalfox installed!"
 
 echo ""
