@@ -244,9 +244,9 @@ ________________________________________________________________________________
           
           Tool	=  Type
       Python 3	=  Pre-installed on Kali Linux
-      Subfinder	=  Go tool
+      Subfinder	=  apt tool
       ParamSpider  =	Python package
-      Dalfox	  =  Go tool
+      Dalfox	  =  brew tool
 
     # HTTP requests for active domain checking
     requests>=2.28.0
