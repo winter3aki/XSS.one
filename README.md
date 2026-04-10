@@ -1,300 +1,153 @@
+# 🔥 XSSone - Ultimate XSS Scanner
 
-                                             🚀 XSS ONE
-___________________________________________________________________________________________________________________________________________________
-
-                          Automated Reflected XSS Scanner for Bug Bounty Hunter
-
-                                          Created by winter#aki
-
-                                         "Hack Smart. Hunt Hard." 🎯
-
-_____________________________________________________________________________________________________________________________________________________
-
-⚙️ Workflow
-
-     Target Domain
-          │
-          ▼
-    ┌─────────────────────────┐
-    │  1. Subfinder            │  →  Subdomain Enumeration
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  2. Active Check         │  →  Filter Live Subdomains (20 Threads)
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  3. ParamSpider          │  →  Parameter Discovery (No Timeout)
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  4. Smart Filter         │  →  Single Params + Remove login/account URLs
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  5. Deduplication        │  →  Remove Duplicate URLs
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  6. FUZZ → 123           │  →  Dalfox Compatibility Fix
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  7. Dalfox Scan          │  →  Reflected XSS + WAF Evasion
-    └──────────┬──────────────┘
-               │
-               ▼
-    ┌─────────────────────────┐
-    │  8. Extract POCs         │  →  vulnerableurl.txt 🎯
-    └─────────────────────────┘
+**XSSone** is an automated bug bounty tool designed to find **Reflected XSS vulnerabilities** using a complete pipeline:
 
+> Subdomain → Active → Parameters → Filter → Dalfox → XSS
 
-_____________________________________________________________________________________________________________________________________________________
+---
 
+## 🚀 Features
 
-🔥 Features
-.🔍 Subdomain Enumeration (subfinder)
-.🌐 Active Domain Detection (HTTP/HTTPS)
-.🔗 Parameter Discovery (paramspider)
-.🧹 URL Filtering (single parameter only)
-.🧪 Payload Normalization & Cleaning
-.💣 Automated XSS Scanning (dalfox)
-.✅ Extracts Valid PoC (Proof of Concept) URLs
-.⚡ Multi-threaded for speed
+* 🔍 Subdomain discovery using **subfinder**
+* 🌐 Active domain filtering (multi-threaded)
+* 🧠 Parameter collection using **paramspider**
+* 🎯 Single parameter filtering (high XSS probability)
+* 🧹 FUZZ cleaning & payload preparation
+* ⚡ XSS detection using **dalfox**
+* 🌍 Internet auto-check & retry
+* 🖥️ Clean CLI + Banner
+* 💾 Auto-saves results
 
-______________________________________________________________________________________________________________________________________________________
+---
 
-🧰 Tech Stack
-🐍 Python Library
-.requests → for HTTP requests & active host detection
+## 📦 Installation
 
-🛠️ External Tools
-.subfinder → subdomain enumeration
-.paramspider → parameter mining
-.dalfox → XSS scanner
-.proxychains → (optional) anonymity
+Clone the repository:
 
-______________________________________________________________________________________________________________________________________________________
+```bash
+git clone https://github.com/winter3aki/XSS.one.git
+cd XSS.one
+```
 
-📁 Output Files
-| File              | Description           |
-| ----------------- | --------------------- |
-| `subfinder.txt`   | Discovered subdomains |
-| `active.txt`      | Live domains          |
-| `param.txt`       | All parameters        |
-| `singleparam.txt` | Single parameter URLs |
-| `withoutfuzz.txt` | Cleaned URLs          |
-| `XSS.txt`         | Raw dalfox output     |
-| `XSSfinal.txt`    | Final XSS PoC URLs    |
+---
 
-__________________________________________________________________________________________________________________________________________________
+## ⚙️ Requirements
 
-⚙️ Installation
+Make sure these tools are installed:
 
-1️⃣ Clone Repository
+### 1. Subfinder
 
-    </> Bash
+```bash
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+```
 
-      git clone https://github.com/winter3aki/XSS.one.git
-      cd xss.one
-      chmod +x install.sh && ./install.sh
+### 2. ParamSpider
 
-Manual Install
+```bash
+pip install paramspider
+```
 
-    </> Bash
-     # Python dependencies
-    pip install requests paramspider
+### 3. Dalfox
 
-    # Go tools
-    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-    go install github.com/hahwul/dalfox/v2@latest
+```bash
+go install github.com/hahwul/dalfox/v2@latest
+```
 
-_________________________________________________________________________________________________________________________________________________
+### 4. Python Modules
 
-2️⃣ Install Python Dependencies
+```bash
+pip install requests
+```
 
-     python3 xssone.py -d target.com
+---
 
+## ▶️ Usage
 
-__________________________________________________________________________________________________________________________________________________
+Run the tool:
 
-3️⃣ Install Required Tools
+```bash
+python3 XSSone.py
+```
 
-Make sure these are installed and added to PATH:
+You will be prompted:
 
-    </> Bash
+```bash
+[?] Enter target domain (example.com):
+```
 
-    subfinder
-    paramspider
-    dalfox
+---
 
-_________________________________________________________________________________________________________________________________________________
+## 🔄 Workflow
 
-Optional:
+```
+Domain Input
+   ↓
+Subfinder (subdomains)
+   ↓
+Active Check
+   ↓
+ParamSpider (parameters)
+   ↓
+Filter Single Params
+   ↓
+Clean FUZZ
+   ↓
+Dalfox Scan
+   ↓
+Extract XSS (POC)
+```
 
-    </> Basah
+---
 
-    proxychains
+## 📁 Output Files
 
-_________________________________________________________________________________________________________________________________________________
+| File              | Description               |
+| ----------------- | ------------------------- |
+| `subdomains.txt`  | All discovered subdomains |
+| `active.txt`      | Active domains            |
+| `parameters.txt`  | All collected URLs        |
+| `singleparam.txt` | Single parameter URLs     |
+| `nofuzz.txt`      | Cleaned URLs              |
+| `scan.txt`        | Dalfox full scan          |
+| `vulnerable.txt`  | 🎯 Final XSS results      |
 
-▶️ Usage
+---
 
-Basic Usage (Recommended)
-Custom Dalfox Settings
+## 📌 Example Output
 
-	   python3 xssone.py -d target.com --dalfox-mode custom --workers 5 --delay 500 --timeout 30
+```
+[POC][GET] https://target.com/page.php?q=<script>alert(1)</script>
+```
 
-All Options		 
+---
 
-         -d, --domain        Target domain (required)
-         --threads           Threads for active subdomain check (default: 20)
-         --dalfox-mode       'default' or 'custom' (default: default)
-         --workers           Dalfox workers in custom mode (default: 5)
-         --delay             Dalfox delay in ms (default: 500)
-         --timeout           Dalfox timeout in seconds (default: 30)
+## ⚠️ Disclaimer
 
-✅ Run with domain argument
+This tool is for **educational and authorized security testing only**.
 
-    </> Bash
-    
-    python3 XSSone.py -d example.com
+❌ Do NOT scan targets without permission
+❌ You are responsible for your actions
 
-___________________________________________________________________________________________________________________________________________________
+---
 
-✅ Run interactively
+## 👨‍💻 Author
 
-    </> Bash
-    
-     python3 XSSone.py
+**Winter AKI**
 
-Then enter:
+---
 
-    example.com
-    
-___________________________________________________________________________________________________________________________________________________
+## ⭐ Support
 
-⚡ Workflow
+If you like this project:
 
-1. Subdomain Enumeration
+* ⭐ Star the repo
+* 🍴 Fork it
+* 🛠️ Contribute
 
-       </> Bash
-          
-       subfinder -d target -o subfinder.txt
+---
 
-__________________________________________________________________________________________________________________________________________________
+## 🔗 Repository
 
-2. Active Domain Check
-.Sends HTTP/HTTPS requests
-.Filters alive domains
-.Uses multithreading (30 threads)
+👉 https://github.com/winter3aki/XSS.one.git
 
-____________________________________________________________________________________________________________________________________________________
-
-3. Parameter Extraction
-
-       </> Bash
-
-       paramspider -l active.txt
-
-_____________________________________________________________________________________________________________________________________________________
-
-4. Filter Single Parameters
-.Keeps only URLs with one parameter
-.Removes complex URLs
-
-____________________________________________________________________________________________________________________________________________________
-
-5. Clean Payloads
-.Removes FUZZ
-.Replaces values → =123
-
-_____________________________________________________________________________________________________________________________________________________
-
-6. Run XSS Scanner
-
-       </> Bash
-
-       dalfox file withoutfuzz.txt
-
-_____________________________________________________________________________________________________________________________________________________
-
-7. Extract XSS PoC
-.Filters only valid PoC lines
-.Saves results in XSSfinal.txt
-
-_____________________________________________________________________________________________________________________________________________________
-
-🧠 Key Features
-.⚡ Fast & efficient (multi-threaded)
-.🛡️ Safe subprocess handling
-.🔄 Fully automated pipeline
-.🧩 Modular design (easy to modify)
-.🎯 Focused on high-quality targets
-
-____________________________________________________________________________________________________________________________________________________
-
-📦 requirements.txt
-          
-          Tool	=  Type
-      Python 3	=  Pre-installed on Kali Linux
-      Subfinder	=  apt tool
-      ParamSpider  =	Python package
-      Dalfox	  =  brew tool
-
-    # HTTP requests for active domain checking
-    requests>=2.28.0
-
-    # External tools (install manually):
-    # subfinder
-    # paramspider
-    # dalfox
-    # proxychains (optional)
-
-___________________________________________________________________________________________________________________________________________________
-
-⚠️ Disclaimer
-
-This tool is strictly for educational purposes and authorized penetration testing only.
-Do NOT use it on systems without proper permission.
-
-_________________________________________________________________________________________________________________________________________________
-
-💡 Future Improvements
-.Multi-parameter fuzzing
-.Wayback/GAU integration
-.JSON/HTML reporting
-.CLI flags for each step
-.Logging & progress tracking
-
-_________________________________________________________________________________________________________________________________________________
-
-⭐ Contributing
-
-Pull requests are welcome!
-Feel free to open issues for bugs or feature requests.
-
-_________________________________________________________________________________________________________________________________________________
-
-👨‍💻 Author
-
-winter3aki | GitHub: @winter3aki
-
-"Hack Smart. Hunt Hard." 🎯
-
-
-
-
-
-
-
-
-
-
-
+---
