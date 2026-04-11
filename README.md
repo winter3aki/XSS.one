@@ -19,7 +19,7 @@
 * 💾 Auto-saves results
 
 ---
-
+<img width="1024" height="1024" alt="dd255264-4b49-4021-a29b-468d1ea94a09" src="https://github.com/user-attachments/assets/adb7fb4d-d329-4333-97fa-d4dd6cb99d4c" />
 ## 📦 Installation
 
 Clone the repository:
